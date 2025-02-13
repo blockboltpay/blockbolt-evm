@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+
+    --primary: 220.9 39.3% 11%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 224 71.4% 4.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 210 20% 98%;
+    --primary-foreground: 220.9 39.3% 11%;
+
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 216 12.2% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+body {
+  font-family: var(--font-chivo), sans-serif;
+  overflow-x: hidden !important;
+  touch-action: manipulation !important;
+  overscroll-behavior: contain !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-libre_franklin), sans-serif;
+}
+
+/* -------------Custom css------------- */
+
+
+.qrContainer div {
+  height: 100vh !important;
+  width: 100% !important;
+  padding: 0 !important;
+  overflow: hidden;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.qrContainer button {
+  z-index: 11 !important;
+}
+
+.logoutIcon:hover path {
+  fill: #111827;
+}
+
+/* ---------------selection box--------------- */
+
+.selectionArea button span div {
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 5px;
+}
+
+.selectionArea button span div .amt {
+  font-size: 14px;
+  color: rgb(22 163 74);
+  font-weight: bold;
+}
+
+.selectionBox svg {
+  position: absolute;
+  right: 0;
+  top: -1px;
+  background: rgb(22 163 74);
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  padding: 1px;
+}
+
+.selectionBox svg path {
+  fill: white;
+}
+
+
+/* ------------model----------- */
+
+.modelWrapper,
+.successWrapper {
+  width: 90% !important;
+  margin: 0 auto !important;
+  border-radius: 10px !important;
+}
+
+input,
+select,
+textarea {
+  font-size: 14px !important;
+}
