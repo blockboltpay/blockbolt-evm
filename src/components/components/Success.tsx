@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import CheckIcon from "@/components/Icons/CheckIcon"
 import CopyIcon from "@/components/Icons/CopyIcon"
 
-const SuccessModal = ({ dataResult }: any) => {
+const SuccessModal = ({ dataResult, handleCloseScanner, isOpen }: any) => {
     const [first, setfirst] = useState('');
 
     const copyContent = (textToCopy: string) => {
@@ -27,7 +27,7 @@ const SuccessModal = ({ dataResult }: any) => {
     }, [dataResult]);
 
     return (
-        <Dialog defaultOpen>
+        <Dialog open={isOpen} onOpenChange={handleCloseScanner}>
             <DialogContent className="sm:max-w-[480px] successWrapper">
                 <div className="flex flex-col items-center gap-6 sm:p-8 ">
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-500/10">

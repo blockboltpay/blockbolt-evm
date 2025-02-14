@@ -76,6 +76,7 @@ const QrScan: React.FC = () => {
                 ) : txnTypes === "Normal" ? (
                     <SendNormalTx
                         generateQrContent={qrCodeData}
+                        handleCloseScanner={handleCloseScanner}
                     />
                 ) : (
                     <Dashboard />
