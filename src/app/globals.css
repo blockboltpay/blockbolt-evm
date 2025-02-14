@@ -142,6 +142,9 @@ h6 {
   fill: white;
 }
 
+.cursorPointer {
+  cursor: pointer;
+}
 
 /* ------------model----------- */
 

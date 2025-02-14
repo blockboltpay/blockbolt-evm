@@ -217,7 +217,7 @@ export default function Dashboard() {
             localStorage.setItem("chain:name", "BASE");
             localStorage.setItem("network:url", "https://base-sepolia.g.alchemy.com/v2/Fb8rIgjDR9607bSeMkRk-j_KpRojLni4");
         }
-        toast('Switched to BASE Testnet',
+        toast('Switched to BASE',
             {
                 icon: '🔵',
                 style: {
@@ -238,7 +238,7 @@ export default function Dashboard() {
             localStorage.setItem("chain:name", "BNB");
             localStorage.setItem("network:url", "https://bsc-rpc.publicnode.com");
         }
-        toast('Switched to BNB Testnet',
+        toast('Switched to BNB',
             {
                 icon: '🟠',
                 style: {
@@ -259,7 +259,7 @@ export default function Dashboard() {
             localStorage.setItem("chain:name", "IOTA");
             localStorage.setItem("network:url", "https://json-rpc.evm.testnet.iotaledger.net");
         }
-        toast('Switched to IOTA Testnet',
+        toast('Switched to IOTA',
             {
                 icon: '⚫️',
                 style: {
@@ -280,7 +280,7 @@ export default function Dashboard() {
             localStorage.setItem("chain:name", "POLYGON");
             localStorage.setItem("network:url", "https://rpc-amoy.polygon.technology");
         }
-        toast('Switched to POLYGON Amoy Testnet',
+        toast('Switched to POLYGON',
             {
                 icon: '🟣',
                 style: {
@@ -301,7 +301,7 @@ export default function Dashboard() {
             localStorage.setItem("chain:name", "Monad");
             localStorage.setItem("network:url", "https://rpc-devnet.monadinfra.com/rpc/3fe540e310bbb6ef0b9f16cd23073b0a");
         }
-        toast('Switched to Monad Amoy Devnet',
+        toast('Switched to Monad',
             {
                 icon: '🟣',
                 style: {
