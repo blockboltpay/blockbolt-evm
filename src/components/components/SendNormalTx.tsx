@@ -29,35 +29,10 @@ import {
 } from "@/components/ui/card"
 import SuccessModal from "./Success"
 
-interface GenerateQrContent {
-    merchant_address: string;
-    merchant_name: string;
-    amount: string;
-    order_id: number;
-    network: string;
-    coin_name: string;
-    blockchain: string;
-}
-
-interface SendTxProps {
-    generateQrContent: GenerateQrContent;
-}
-
-type Network = 'BNB' | 'BASE' | 'IOTA' | 'POLYGON' | "MONAD";
-
-interface ChainConfig {
-    name: string;
-    rpc: string;
-    chainId: number;
-    blockboltAddress: string;
-    usdcAddress: string;
-    usdtAddress: string;
-}
-
-const SendNormalTx: React.FC<SendTxProps> = ({ generateQrContent }) => {
+const SendNormalTx = ({ generateQrContent, handleCloseScanner }: any) => {
     const [txnDigest, setTxnDigest] = useState('');
     const [showLoading, setShowLoading] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(true);
     const [jsonContent, setJsonContent] = useState<any>({});
 
     // https://mainnet-rpc.zkbase.app
@@ -68,6 +43,18 @@ const SendNormalTx: React.FC<SendTxProps> = ({ generateQrContent }) => {
         transactionId: txnDigest,
         chainName: generateQrContent.blockchain,
         coin: generateQrContent.coin_name
+    }
+
+    const onErrorMessage = (error: any) => {
+        toast(error && error.message,
+            {
+                style: {
+                    borderRadius: '10px',
+                    background: '#FF2E2E',
+                    color: '#fff',
+                },
+            }
+        );
     }
 
     const sendToken = async (recipientAddress: any, signer: any) => {
@@ -83,17 +70,17 @@ const SendNormalTx: React.FC<SendTxProps> = ({ generateQrContent }) => {
 
         const contract = new ethers.Contract(blockboltAddress, BlockBoltNew, signer);
 
-        let contractAddress;
+        let tokenAddress;
         if (generateQrContent.network == "mainnet") {
-            contractAddress = await renderTokenMainAddress(generateQrContent.coin_name);
+            tokenAddress = await renderTokenMainAddress(generateQrContent.coin_name);
         } else {
-            contractAddress = await renderTokenTestAddress(generateQrContent.coin_name);
+            tokenAddress = await renderTokenTestAddress(generateQrContent.coin_name);
         }
-        if (contractAddress == undefined) return;
+        if (tokenAddress == undefined) return;
 
         try {
             const tx = await contract.transferToken(
-                contractAddress,
+                tokenAddress,
                 recipientAddress,
                 parseEther(generateQrContent.amount.toString()),
                 generateQrContent.merchant_name,
@@ -103,8 +90,9 @@ const SendNormalTx: React.FC<SendTxProps> = ({ generateQrContent }) => {
             setTxnDigest(tx.hash);
             setShowSuccess(true);
             setShowLoading(false);
-        } catch (error) {
+        } catch (error: any) {
             setShowLoading(false);
+            onErrorMessage(error);
             console.error('Error sending transaction:', error);
         }
     };
@@ -136,8 +124,9 @@ const SendNormalTx: React.FC<SendTxProps> = ({ generateQrContent }) => {
             setTxnDigest(tx.hash);
             setShowSuccess(true);
             setShowLoading(false);
-        } catch (error) {
+        } catch (error: any) {
             setShowLoading(false);
+            onErrorMessage(error);
             console.error('Error sending transaction:', error);
         }
     };
@@ -169,9 +158,10 @@ const SendNormalTx: React.FC<SendTxProps> = ({ generateQrContent }) => {
             );
             const trig = await tx.wait();
             sendToken(recipientAddress, signer);
-        } catch (error) {
+        } catch (error: any) {
             setShowLoading(false);
-            console.error('error block', error);
+            onErrorMessage(error);
+            console.error('Error sending transaction:', error);
         }
 
     };
@@ -196,8 +186,9 @@ const SendNormalTx: React.FC<SendTxProps> = ({ generateQrContent }) => {
             setTxnDigest(tx.hash);
             setShowSuccess(true);
             setShowLoading(false);
-        } catch (error) {
+        } catch (error: any) {
             setShowLoading(false);
+            onErrorMessage(error);
             console.error('Error sending transaction:', error);
         }
     }
@@ -238,7 +229,7 @@ const SendNormalTx: React.FC<SendTxProps> = ({ generateQrContent }) => {
                 onApproveToken(generateQrContent.merchant_address, signer);
             }
         } catch (error) {
-            console.log('error', error);
+            console.log('finally', error);
         }
     };
 
@@ -262,12 +253,17 @@ const SendNormalTx: React.FC<SendTxProps> = ({ generateQrContent }) => {
 
     return (
         <>
-            <div className="flex h-screen  justify-center items-center">
+            <div className="flex h-screen justify-center items-center">
                 <Toaster />
                 <Card className="w-full max-w-md modelWrapper">
                     <CardHeader>
-                        <CardTitle>Send Crypto</CardTitle>
-                        <CardDescription>Enter the details to send your cryptocurrency.</CardDescription>
+                        <div className='flex'>
+                            <div>
+                                <CardTitle>Send Crypto</CardTitle>
+                                <CardDescription>Enter the details to send your cryptocurrency.</CardDescription>
+                            </div>
+                            <span className='cursorPointer' onClick={() => !showLoading && handleCloseScanner()}>Close</span>
+                        </div>
                     </CardHeader>
                     <CardContent className="grid gap-4">
                         <div className="grid gap-2">
@@ -323,7 +319,7 @@ const SendNormalTx: React.FC<SendTxProps> = ({ generateQrContent }) => {
                     </CardFooter>
                 </Card>
             </div>
-            {showSuccess && <SuccessModal dataResult={dataResult} />}
+            {showSuccess && <SuccessModal dataResult={dataResult} handleCloseScanner={handleCloseScanner} isOpen={showSuccess} />}
         </>
     );
 };
