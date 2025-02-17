@@ -390,7 +390,7 @@ export default function Dashboard() {
                             <BbMono />
                             <span className="sr-only">Open menu</span>
                         </Button>
-                        <div className="text-base font-medium bg-grey leading-none">EVM Demo Wallet</div>
+                        <div className="text-base font-medium bg-grey leading-none">EVM Demo Wallet v1</div>
                         <Button variant="ghost" size="icon" onClick={logoutData} className="logoutIcon">
                             <LogoutIcon className="h-6 w-6" />
                             <span className="sr-only">LogOut</span>
