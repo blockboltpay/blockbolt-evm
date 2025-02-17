@@ -314,6 +314,10 @@ export default function Dashboard() {
         setShowNavigation(false);
     }
 
+    const onCloseMainModule = () => {
+        setShowScanner(false)
+    }
+
     useEffect(() => {
         if (walletAddress !== "" && getNetwork !== "devnet" && isTxnSuccess) {
             fetchData(walletAddress);
@@ -378,7 +382,7 @@ export default function Dashboard() {
     return (
         <>
             <Toaster />
-            {showScanner ? <QrScan /> :
+            {showScanner ? <QrScan onCloseMainModule={onCloseMainModule} /> :
                 <div className="flex flex-col h-screen w-full">
                     <header className="flex items-center justify-between px-4 py-3 bg-gray-900 text-white">
 

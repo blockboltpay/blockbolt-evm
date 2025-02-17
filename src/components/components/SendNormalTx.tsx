@@ -32,7 +32,7 @@ import SuccessModal from "./Success"
 const SendNormalTx = ({ generateQrContent, handleCloseScanner }: any) => {
     const [txnDigest, setTxnDigest] = useState('');
     const [showLoading, setShowLoading] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(true);
+    const [showSuccess, setShowSuccess] = useState(false);
     const [jsonContent, setJsonContent] = useState<any>({});
 
     // https://mainnet-rpc.zkbase.app

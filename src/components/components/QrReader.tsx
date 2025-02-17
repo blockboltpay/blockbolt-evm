@@ -6,10 +6,9 @@ import SendNormalTx from '@/components/components/SendNormalTx';
 import Dashboard from '@/components/components/Dashboard';
 import "../../app/globals.css";
 
-const QrScan: React.FC = () => {
+const QrScan = ({ onCloseMainModule }: any) => {
     const [qrCodeData, setQrCodeData] = useState<any>(null);
     const [scanning, setScanning] = useState<boolean>(true);
-    const [showDashboard, setShowDashboard] = useState<boolean>(false);
     const [txnTypes, setTxnTypes] = useState("");
     const previewStyle = {};
 
@@ -18,7 +17,9 @@ const QrScan: React.FC = () => {
     };
 
     const handleCloseScanner = () => {
+        setQrCodeData(null);
         setScanning(false);
+        onCloseMainModule();
     };
 
     const handleScan = (data: string | null) => {
@@ -28,20 +29,11 @@ const QrScan: React.FC = () => {
                 parsedData && parsedData.coin_name && parsedData.blockchain ? setTxnTypes("Normal") : setTxnTypes("Soundbox");
                 setQrCodeData(parsedData);
                 setScanning(false);
-                setShowDashboard(false);
             } catch (error) {
                 console.error('Error parsing QR code data:', error);
             }
         }
     };
-
-    if (showDashboard) {
-        return (
-            <div className="w-full bg-white rounded relative">
-                <Dashboard />
-            </div>
-        );
-    }
 
     if (scanning) {
         return (
