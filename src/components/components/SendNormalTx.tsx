@@ -170,16 +170,18 @@ const SendNormalTx = ({ generateQrContent, handleCloseScanner }: any) => {
         if (!signer) return;
 
         const blockboltAddress = jsonContent.blockboltAddress;
+        const orderId = String(generateQrContent.order_id).trim();
         const contract = new ethers.Contract(blockboltAddress, monadabi, signer);
 
         try {
             const amountToSend = parseEther(generateQrContent.amount.toString());
             const tx = await contract.transfer(
-                BigInt(generateQrContent.order_id),
+                orderId,
                 generateQrContent.merchant_name,
                 generateQrContent.merchant_address,
                 {
                     value: amountToSend,
+                    // gasLimit: BigInt(500000)
                 }
             );
             const trig = await tx.wait();
@@ -223,7 +225,7 @@ const SendNormalTx = ({ generateQrContent, handleCloseScanner }: any) => {
             }
             if (generateQrContent.coin_name == "BNB" || generateQrContent.coin_name == "ETH") {
                 sendBNB(generateQrContent.merchant_address, signer);
-            } else if (generateQrContent.coin_name == "DMON") {
+            } else if (generateQrContent.coin_name == "MON") {
                 transferMonadCoin(signer);
             } else {
                 onApproveToken(generateQrContent.merchant_address, signer);

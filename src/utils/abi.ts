@@ -1262,28 +1262,6 @@ export const monadabi = [
     "type": "constructor"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "target",
-        "type": "address"
-      }
-    ],
-    "name": "AddressEmptyCode",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "account",
-        "type": "address"
-      }
-    ],
-    "name": "AddressInsufficientBalance",
-    "type": "error"
-  },
-  {
     "inputs": [],
     "name": "AlreadyRefunded",
     "type": "error"
@@ -1296,11 +1274,6 @@ export const monadabi = [
   {
     "inputs": [],
     "name": "ExpectedPause",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "FailedInnerCall",
     "type": "error"
   },
   {
@@ -1340,7 +1313,17 @@ export const monadabi = [
   },
   {
     "inputs": [],
+    "name": "OrderAlreadyExists",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "OrderAlreadyProcessed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "OrderNotFound",
     "type": "error"
   },
   {
@@ -1446,9 +1429,9 @@ export const monadabi = [
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "orderId",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "indexed": false,
@@ -1473,6 +1456,12 @@ export const monadabi = [
         "internalType": "uint256",
         "name": "fee",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "transactionHash",
+        "type": "bytes32"
       }
     ],
     "name": "PaymentProcessed",
@@ -1483,9 +1472,9 @@ export const monadabi = [
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "orderId",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "indexed": false,
@@ -1508,9 +1497,9 @@ export const monadabi = [
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "orderId",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "indexed": false,
@@ -1557,9 +1546,15 @@ export const monadabi = [
       },
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "orderId",
-        "type": "uint256"
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "transactionHash",
+        "type": "bytes32"
       }
     ],
     "name": "TokenTransferred",
@@ -1639,9 +1634,9 @@ export const monadabi = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "_orderId",
-        "type": "uint256"
+        "type": "string"
       }
     ],
     "name": "getOrder",
@@ -1649,9 +1644,9 @@ export const monadabi = [
       {
         "components": [
           {
-            "internalType": "uint256",
+            "internalType": "string",
             "name": "orderId",
-            "type": "uint256"
+            "type": "string"
           },
           {
             "internalType": "string",
@@ -1689,12 +1684,17 @@ export const monadabi = [
             "type": "bool"
           },
           {
-            "internalType": "enum BlockBolt.OrderStatus",
+            "internalType": "enum Blockbolt.OrderStatus",
             "name": "status",
             "type": "uint8"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "transactionHash",
+            "type": "bytes32"
           }
         ],
-        "internalType": "struct BlockBolt.Order",
+        "internalType": "struct Blockbolt.Order",
         "name": "",
         "type": "tuple"
       }
@@ -1705,9 +1705,9 @@ export const monadabi = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "_orderId",
-        "type": "uint256"
+        "type": "string"
       }
     ],
     "name": "getRefundStatus",
@@ -1718,7 +1718,7 @@ export const monadabi = [
         "type": "bool"
       },
       {
-        "internalType": "enum BlockBolt.OrderStatus",
+        "internalType": "enum Blockbolt.OrderStatus",
         "name": "status",
         "type": "uint8"
       },
@@ -1739,17 +1739,55 @@ export const monadabi = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
+        "name": "_orderId",
+        "type": "string"
+      }
+    ],
+    "name": "getTransactionHash",
+    "outputs": [
+      {
+        "internalType": "bytes32",
         "name": "",
-        "type": "uint256"
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "name": "orderExists",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
       }
     ],
     "name": "orders",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "orderId",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "internalType": "string",
@@ -1787,9 +1825,14 @@ export const monadabi = [
         "type": "bool"
       },
       {
-        "internalType": "enum BlockBolt.OrderStatus",
+        "internalType": "enum Blockbolt.OrderStatus",
         "name": "status",
         "type": "uint8"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "transactionHash",
+        "type": "bytes32"
       }
     ],
     "stateMutability": "view",
@@ -1850,9 +1893,9 @@ export const monadabi = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "_orderId",
-        "type": "uint256"
+        "type": "string"
       }
     ],
     "name": "processRefund",
@@ -1883,9 +1926,9 @@ export const monadabi = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "_orderId",
-        "type": "uint256"
+        "type": "string"
       }
     ],
     "name": "requestRefund",
@@ -1903,9 +1946,9 @@ export const monadabi = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "_orderId",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "internalType": "string",
@@ -1959,9 +2002,9 @@ export const monadabi = [
         "type": "string"
       },
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "order_id",
-        "type": "uint256"
+        "type": "string"
       }
     ],
     "name": "transferToken",

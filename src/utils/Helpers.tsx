@@ -7,7 +7,7 @@ export const sound_provider_id = "CZWguXGUlhBNiG5brX2g4tPIdW0kEsO1";
 export const blockboltIotaAddress = "0x023E3e69C48042EEB1892269036E96C71b138ea2"
 export const blockboltBaseAddress = "0x8bDA78Cc649bfc70eDC44Ac61287ead47054f29B"
 export const blockboltBnbAddress = "0x27F558a5189EC09bca25a795256Fbf2592b20000"
-export const blockboltMonadAddress = "0x394bbd6F91bFe65709524730D9D1867eF7Dcd435"
+export const blockboltMonadAddress = "0xA5acD7638F1EA0F0B34e64674694FCD46DcFb5Cc"
 export const usdtIotaAddress = "0x4C74Ee1CB3f711962458385126520381912c7b01"
 export const usdtBaseAddress = "0x8208be07Fd9CFfE05cE197FbaD8F21242C2DeDe7"
 export const usdtPolygonAddress = "0x4C74Ee1CB3f711962458385126520381912c7b01"
@@ -89,10 +89,10 @@ export const rpcAllConfig = {
         usdtAddress: usdtPolygonAddress
     },
     MONAD: {
-        name: 'Monad Devnet',
-        rpc: 'https://rpc-devnet.monadinfra.com/rpc/3fe540e310bbb6ef0b9f16cd23073b0a',
-        chainId: 20143,
-        blockboltAddress: "0x394bbd6F91bFe65709524730D9D1867eF7Dcd435",
+        name: 'Monad Testnet',
+        rpc: 'https://testnet-rpc.monad.xyz/',
+        chainId: 10143,
+        blockboltAddress: "0xA5acD7638F1EA0F0B34e64674694FCD46DcFb5Cc",
         usdcAddress: usdcPolygonAddress,
         usdtAddress: usdtPolygonAddress
     }
@@ -222,10 +222,10 @@ export const rpcConfig: Record<Network, ChainConfig> = {
         usdtAddress: usdtIotaAddress
     },
     MONAD: {
-        name: 'Monad Devnet',
-        rpc: 'https://rpc-devnet.monadinfra.com/rpc/3fe540e310bbb6ef0b9f16cd23073b0a',
-        chainId: 20143,
-        blockboltAddress: blockboltMonadAddress,
+        name: 'Monad Testnet',
+        rpc: 'https://testnet-rpc.monad.xyz/',
+        chainId: 10143,
+        blockboltAddress: "0xA5acD7638F1EA0F0B34e64674694FCD46DcFb5Cc",
         usdcAddress: usdcPolygonAddress,
         usdtAddress: usdtPolygonAddress
     }
@@ -317,7 +317,7 @@ export const checkExplorer = (getChainName: any, txid: any) => {
             return `https://amoy.polygonscan.com/tx/${txid}`;
         }
         case "Monad": {
-            return `https://explorer.monad-devnet.devnet101.com/tx/${txid}`
+            return `https://testnet.monadexplorer.com/tx/${txid}`
         }
     }
 };

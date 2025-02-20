@@ -105,7 +105,7 @@ export default function Dashboard() {
     };
 
     const tokenBal = async () => {
-        if (jsonContent && Object.keys(jsonContent).length > 0 && getNetwork !== "devnet") {
+        if (jsonContent && Object.keys(jsonContent).length > 0 && getNetwork !== "testnet") {
             const usdcAddress = jsonContent?.usdcAddress;
             const usdtAddress = jsonContent?.usdtAddress;
             if (!usdcAddress || !usdtAddress) {
@@ -195,8 +195,8 @@ export default function Dashboard() {
         const walletKey = await walletMnemonic.getAddress()
         const signer = walletMnemonic.connect(Defaultprovider)
         setKeyPair(signer);
-        getNetwork !== "devnet" && setWalletAddress(walletKey);
-        getNetwork !== "devnet" && fetchData(walletKey);
+        getNetwork !== "testnet" && setWalletAddress(walletKey);
+        getNetwork !== "testnet" && fetchData(walletKey);
     };
 
     const logoutData = async () => {
@@ -294,12 +294,12 @@ export default function Dashboard() {
     }
 
     const monadConfig = async () => {
-        setWalletNetwork("devnet");
-        setWalletNetworkUrl("https://rpc-devnet.monadinfra.com/rpc/3fe540e310bbb6ef0b9f16cd23073b0a");
+        setWalletNetwork("testnet");
+        setWalletNetworkUrl("https://testnet-rpc.monad.xyz/");
         if (typeof window !== 'undefined') {
-            localStorage.setItem("network:name", "devnet");
+            localStorage.setItem("network:name", "testnet");
             localStorage.setItem("chain:name", "Monad");
-            localStorage.setItem("network:url", "https://rpc-devnet.monadinfra.com/rpc/3fe540e310bbb6ef0b9f16cd23073b0a");
+            localStorage.setItem("network:url", "https://testnet-rpc.monad.xyz/");
         }
         toast('Switched to Monad',
             {
@@ -319,14 +319,14 @@ export default function Dashboard() {
     }
 
     useEffect(() => {
-        if (walletAddress !== "" && getNetwork !== "devnet" && isTxnSuccess) {
+        if (walletAddress !== "" && getNetwork !== "testnet" && isTxnSuccess) {
             fetchData(walletAddress);
             setIsTxnSuccess(false);
         }
     }, [isTxnSuccess]);
 
     useEffect(() => {
-        getNetworkChain !== "devnet" && tokenBal();
+        getNetworkChain !== "testnet" && tokenBal();
     }, [getNetworkChain, jsonContent]);
 
     useEffect(() => {
@@ -340,7 +340,7 @@ export default function Dashboard() {
             getNetworkChain !== "" &&
             getNetworkChain !== null &&
             getNetworkChain !== undefined &&
-            getNetworkChain !== "devnet"
+            getNetworkChain !== "testnet"
         ) {
             setWalletNetwork(decrypted_data(getNetwork));
             setWalletNetworkUrl(decrypted_data(getNetworkUrl));
@@ -415,7 +415,7 @@ export default function Dashboard() {
                             </div>
                             <div className="flex flex-col items-center">
                                 <span className="text-gray-500 text-sm flex items-center gap-2">Balance<RefreshCwIcon className="h-3 w-3" /></span>
-                                {getNetwork == "devnet" ? (
+                                {getNetwork == "testnet" ? (
                                     <span className="font-medium text-2xl">0.0000 MON</span>
                                 ) : (
                                     <span className="font-medium text-2xl">{coinValue} {coinSymbol}</span>
@@ -447,16 +447,16 @@ export default function Dashboard() {
                             </div>
                         </div>
                         <ScrollArea className="flex-1">
-                            {getNetwork == "devnet" ? (
+                            {getNetwork == "testnet" ? (
                                 <div className="p-4 space-y-4">
                                     <Card className="bg-gray-50 dark:bg-gray-900 dark:text-white">
                                         <CardContent className="flex items-center justify-between">
                                             <div>
-                                                <h4 className="font-medium">DMON</h4>
-                                                <p className="text-gray-500 dark:text-green-300">DMON</p>
+                                                <h4 className="font-medium">MON</h4>
+                                                <p className="text-gray-500 dark:text-green-300">MON</p>
                                             </div>
                                             <div className="text-right">
-                                                <h4 className="font-medium">0 DMON</h4>
+                                                <h4 className="font-medium">0 MON</h4>
                                                 <p className="text-gray-500 dark:text-green-300">$1</p>
                                             </div>
                                         </CardContent>
